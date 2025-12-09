@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.notFound h1{
+    font-size: 130px;
+}
+
+.notFound p{
+    font-size: 50px;
+}
