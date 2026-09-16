@@ -4,6 +4,9 @@ import MainLayout from '@layouts/MainLayout/MainLayout';
 import Home from '@pages/Home';
 import Categories from '@pages/Categories';
 import Products from '@pages/Products';
+import ProductDetail from '@pages/ProductDetail';
+import Cart from '@pages/Cart';
+import Search from '@pages/Search';
 import AboutUs from '@pages/AboutUs';
 import Login from '@pages/Login';
 import Register from '@pages/Register';
@@ -34,11 +37,22 @@ const router =createBrowserRouter([
           return true
       }
     },
-
+      {
+        path:'categories/products/:prefix/:id',
+        element:<ProductDetail/>
+      },
+      {
+        path:'cart',
+        element:<Cart/>
+      },
+      {
+        path:'search',
+        element:<Search/>
+      },
       {
         path:'about-us',
         element:<AboutUs/>
-      
+
     },
       {
         path:'login',
