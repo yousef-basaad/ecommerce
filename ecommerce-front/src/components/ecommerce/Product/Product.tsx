@@ -1,11 +1,16 @@
 import type { TProduct } from "@customTypes/product"
 
+// The vite dev server proxies /api-image to eg.hm.com (see vite.config.ts);
+// that proxy only exists in `vite dev`, so production must use the direct URL.
+const resolveImageSrc = (img: string) =>
+  import.meta.env.DEV ? img.replace('https://eg.hm.com', '/api-image') : img;
+
 const Product = ({ title, price, img }: TProduct) => {
   return (
     <div className="group w-full max-w-[220px] flex flex-col rounded-2xl border border-gray-100 bg-white overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-lg">
       <div className="w-full h-[220px] bg-gray-100 overflow-hidden">
         <img
-          src={img.replace('https://eg.hm.com', '/api-image')}
+          src={resolveImageSrc(img)}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
