@@ -1,4 +1,4 @@
-import { TProduct } from "@customTypes/product"
+import type { TProduct } from "@customTypes/product"
 
 
 
@@ -7,7 +7,7 @@ const Product = ({title, price, img}: TProduct) => {
     <div className="w-30 flex flex-col justify-between">
       <div className="w-full h-[200px] bg-gray-200">
         <img
-          src={`/api-image${img}`}
+          src={img.replace('https://eg.hm.com', '/api-image')}
           alt={title}
           className="w-full h-45 object-cover"
         />

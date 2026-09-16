@@ -2,7 +2,7 @@
 import {useAppDispatch, useAppSelector} from '../store/hooks';
 import {actGetCategories} from '@store/categories/categoriesSlice';
 import { useEffect } from 'react';
-import { Category } from "@components/eCommerce";
+import { Category } from "@components/ecommerce";
 
 
 
@@ -26,6 +26,9 @@ function Categories() {
     </div>
 
   }) : "there are no categories";
+
+  if (loading === "pending") return <div className="container mx-auto py-8 text-center">Loading...</div>;
+  if (error) return <div className="container mx-auto py-8 text-center text-red-500">{error}</div>;
 
   return (
     <div className="container mx-auto">
