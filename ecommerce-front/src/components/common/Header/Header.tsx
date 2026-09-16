@@ -1,91 +1,52 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import HeaderBasket from "../../ecommerce/HeaderBasket/HeaderBasket";
 
-
-
+const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
+  `relative text-sm font-medium py-1 transition-colors ${
+    isActive
+      ? "text-gray-900 after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-gray-900"
+      : "text-gray-500 hover:text-gray-900"
+  }`;
 
 export default function Header() {
-  const linkClasses =
-    "text-gray-300 hover:text-white text-sm";
-
-  const activeClasses = "text-white font-semibold";
-
   return (
-    <header className="w-full">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
+      <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        {/* LOGO */}
+        <Link to="/" className="flex items-center gap-1.5">
+          <span className="text-xl font-extrabold tracking-tight lowercase">my</span>
+          <span className="px-2 py-0.5 bg-gray-900 text-white rounded-md text-lg font-bold tracking-tight">
+            Ecom
+          </span>
+        </Link>
 
-     {/* TOP LOGO */}
-<div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-
-  {/* LEFT SIDE (LOGO GROUP TOGETHER) */}
-  <div className="flex items-center gap-2">
-    <span className="text-2xl font-bold lowercase tracking-tight">my</span>
-    <span className="px-2 py-1 bg-sky-600 text-white rounded text-lg font-semibold">
-      Ecom
-    </span>
-  </div>
-
-  {/* RIGHT SIDE (CART) */}
-  <HeaderBasket />
-
-</div>
-      {/* NAVBAR (BOXED) */}
-      <div className="max-w-6xl mx-auto px-4">
-        <nav className="bg-gray-800 rounded-sm px-4 py-2 flex justify-between items-center">
-
-          {/* LEFT LINKS */}
-          <div className="flex gap-6">
-            <NavLink 
-              to="/"
-              className={({ isActive } ) =>
-                isActive ? activeClasses : linkClasses
-              }
-            >
-              Home
-            </NavLink>
-
-            <NavLink
-              to="/categories"
-              className={({ isActive }) =>
-                isActive ? activeClasses : linkClasses
-              }
-            >
-              Categories
-            </NavLink>
-
-            <NavLink
-              to="/about-us"
-              className={({ isActive }) =>
-                isActive ? activeClasses : linkClasses
-              }
-            >
-              About
-            </NavLink>
-          </div>
-
-          {/* RIGHT LINKS */}
-          <div className="flex gap-4">
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive ? activeClasses : linkClasses
-              }
-            >
-              Login
-            </NavLink>
-
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                isActive ? activeClasses : linkClasses
-              }
-            >
-              Register
-            </NavLink>
-          </div>
-
+        {/* NAV */}
+        <nav className="hidden sm:flex items-center gap-8">
+          <NavLink to="/" end className={navLinkClasses}>
+            Home
+          </NavLink>
+          <NavLink to="/categories" className={navLinkClasses}>
+            Categories
+          </NavLink>
+          <NavLink to="/about-us" className={navLinkClasses}>
+            About
+          </NavLink>
         </nav>
-      </div>
 
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-5">
+          <NavLink to="/login" className={navLinkClasses}>
+            Login
+          </NavLink>
+          <NavLink
+            to="/register"
+            className="hidden sm:inline-flex text-sm font-semibold text-white bg-gray-900 hover:bg-gray-700 transition-colors px-4 py-2 rounded-full"
+          >
+            Register
+          </NavLink>
+          <HeaderBasket />
+        </div>
+      </div>
     </header>
   );
 }

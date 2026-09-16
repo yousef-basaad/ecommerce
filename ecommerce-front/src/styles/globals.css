@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
-.notFound h1{
-    font-size: 130px;
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #14161a;
+  --color-accent: #0d6efd;
 }
 
-.notFound p{
-    font-size: 50px;
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
 }
