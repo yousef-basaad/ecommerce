@@ -1,38 +1,43 @@
-import {  useEffect } from "react"
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
 import actGetProductsByCatPrefix from "@store/products/actGetProductsByCatPrefix"
-import { Product } from "@components/eCommerce"
-
+import { Product } from "@components/ecommerce"
 
 function Products() {
-  const params= useParams();
+  const params = useParams();
   const dispatch = useAppDispatch();
-  const {records,loading,error} = useAppSelector((state)=> state.products);
+  const { records, loading, error } = useAppSelector((state) => state.products);
 
   useEffect(() => {
-   
     dispatch(actGetProductsByCatPrefix(params.prefix as string));
-  }, [dispatch,params]);
+  }, [dispatch, params]);
 
-  const ProductsList =
-   records.length > 0
-    ? records.map(record => {
-       console.log("IMG FROM RECORD:", record.img);
-
-    return <div key={record.id}
-     className="w-1/2 md:w-1/4 flex justify-center mb-5 mt-2">
-      <Product {...record} />
-    </div>
-
-  }) : "there are no categories";
   return (
-      <div className="container mx-auto">
-  <div className="flex flex-wrap">
-   {ProductsList}
-  </div>
-</div>
-  )
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      <h1 className="text-2xl font-bold text-gray-900 mb-8 capitalize">{params.prefix}</h1>
+
+      {loading === "pending" && (
+        <div className="py-16 text-center text-gray-500">Loading...</div>
+      )}
+
+      {error && (
+        <div className="py-16 text-center text-red-500">{error}</div>
+      )}
+
+      {loading === "succeeded" && records.length === 0 && (
+        <div className="py-16 text-center text-gray-500">There are no products</div>
+      )}
+
+      {records.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {records.map((record) => (
+            <Product key={record.id} {...record} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Products
