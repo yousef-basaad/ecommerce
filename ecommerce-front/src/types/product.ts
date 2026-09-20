@@ -1,5 +1,5 @@
 export type TProduct = {
-    id?: number; 
+    id?: string | number;
     title: string;
     cat_prefix: string;
     img: string ;

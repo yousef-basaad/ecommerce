@@ -1,20 +1,35 @@
-import { TProduct } from "@customTypes/product"
+import type { TProduct } from "@customTypes/product"
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "@store/hooks";
+import { addItem } from "@store/cart/cartSlice";
+import { resolveProductImageSrc } from "@util/productImage";
 
+const Product = (product: TProduct) => {
+  const { id, title, price, img, cat_prefix } = product;
+  const dispatch = useAppDispatch();
+  const detailLink = `/categories/products/${cat_prefix}/${id}`;
 
-
-const Product = ({title, price, img}: TProduct) => {
   return (
-    <div className="w-30 flex flex-col justify-between">
-      <div className="w-full h-[200px] bg-gray-200">
+    <div className="group w-full max-w-[220px] flex flex-col rounded-2xl border border-gray-100 bg-white overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-lg">
+      <Link to={detailLink} className="block w-full h-[220px] bg-gray-100 overflow-hidden">
         <img
-          src={`/api-image${img}`}
+          src={resolveProductImageSrc(img)}
           alt={title}
-          className="w-full h-45 object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
+      </Link>
+      <div className="flex flex-col gap-1.5 p-4">
+        <Link to={detailLink}>
+          <h2 className="text-sm font-medium text-gray-800 truncate hover:underline">{title}</h2>
+        </Link>
+        <h3 className="text-sm font-semibold text-gray-950">{price} SAR</h3>
+        <button
+          onClick={() => dispatch(addItem(product))}
+          className="mt-2 w-full bg-gray-900 text-white text-sm font-semibold py-2.5 rounded-full transition-colors hover:bg-gray-700"
+        >
+          Add to cart
+        </button>
       </div>
-      <h2 className="text-lg mt-2 mb-3 w-full whitespace-nowrap overflow-hidden overflow-ellipsis">{title}</h2>
-      <h3 className="text-sm">{price} SAR</h3>
-      <button className="bg-blue-500 text-white py-2 px-4 rounded">Add to cart</button>
     </div>
   );
 };

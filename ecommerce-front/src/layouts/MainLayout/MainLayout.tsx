@@ -4,10 +4,9 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1 max-w-7xl mx-auto w-full py-8">
-        {/* Main content goes here */}
+      <main className="flex-1 w-full">
         <Outlet />
       </main>
       <Footer />
